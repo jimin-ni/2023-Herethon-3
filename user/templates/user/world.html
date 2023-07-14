@@ -13,11 +13,11 @@
   <body>
     {% block content %}
     <header class="nav">
-      <a href="{% url 'complete' %}" id="back"
+      <a href="{% url 'user:complete' %}" id="back"
         ><img src="{% static 'media/back.png' %}" id="back_img"
       /></a>
       <div id="name">별천지</div>
-      <a href="{% url 'mypage' %}" id="my">
+      <a href="{% url 'user:mypage' %}" id="my">
         <img src="{% static 'media/my.png' %}" id="my_img" />
       </a>
     </header>

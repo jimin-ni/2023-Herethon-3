@@ -46,8 +46,8 @@
 
     <div class="container" style="padding: 2em">
         <!-- user 정보 불러오기 -->
-        {% block content %}
-            <p>{{ user.nickname }}</p>    <!-- view 부분에 userdatas = User.objects.all() -->
+        {% block contents %}
+            <p>{{ user.user_id }}</p>    <!-- view 부분에 userdatas = User.objects.all() -->
             <p>{{ user.user_id  }}</p> 
             <p>{{ user.email   }}</p> 
             <p>{{ user.pk  }}</p> 

@@ -67,4 +67,3 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
 
     return render(request, 'user/change-pw.html', {'form':form})
-

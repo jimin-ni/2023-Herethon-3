@@ -12,7 +12,7 @@ $(".get-modal-btn").click(function () {
   //별에 마우스 오버시 별 색이 채워짐
   $("label").hover(
     function () {
-      $(this).find("img").attr("src", "./icFilledStar.png");
+      $(this).find("img").attr("src", "../images/icFilledStar.png");
       $(this).prevAll().find("img").attr("src", "./icFilledStar.png");
       $(this).nextAll().find("img").attr("src", "./icEmptyStar.png");
     },
