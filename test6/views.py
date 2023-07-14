@@ -8,6 +8,8 @@ from django.shortcuts import render, redirect
 from .forms import ReviewForm
 from .models import ReviewRating, ReviewSub
 
+from user.models import User
+
 
 def star_review(request):
     reviews = ReviewRating.objects.all()
@@ -37,3 +39,8 @@ def submit_review(request, location_id):
                 data.save()
                 messages.success(request, 'Submit success!')
                 return redirect(url)
+
+
+def detail(request):
+    users = User.objects.all()
+    return render(request, 'test6/test6.html', {'users':users})

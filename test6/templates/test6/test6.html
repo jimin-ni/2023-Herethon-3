@@ -11,7 +11,36 @@
 <body>
     <h3>Reviews</h3>
 
-    <form action="{% url 'test6:submit_review' location_id=reviews.location_id %}" method="POST">
+    {% block content %}
+        <p>{{ user.nickname }}</p>    <!-- view 부분에 userdatas = User.objects.all() -->
+        <p>{{ user.user_id  }}</p> 
+        <p>{{ user.email   }}</p> 
+        <p>{{ user.pk  }}</p> 
+        <p>ddd</p>
+        <p>ddd</p>
+        <p>ddd</p>
+        <p>ddd</p>
+
+        <p>Total Users: {{ users.count }}</p>
+
+        {% for item in users %}
+            <!-- 반복되는 내용 -->
+            <p>{{ forloop.counter }}</p>
+            <p>유저 갯수만큼 반복</p>
+        {% endfor %}
+
+        {% for item in users %}
+            <p>{{ item.nickname }}</p>
+        {% endfor %}
+
+        {% for items in user_content %}
+            {{ items.user.nickname }}
+        {% endfor %}
+
+    {% endblock %}
+
+
+    <form action="{% url 'test6:submit_review' %}" method="POST">
         {% csrf_token %}
         <div>
                 <label>치안</label>
