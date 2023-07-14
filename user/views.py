@@ -12,6 +12,9 @@ from django.contrib.auth.decorators import login_required
 def main(request):
     return render(request, 'user/main.html')
 
+def complete(request):
+    return render(request, 'user/complete.html')
+
 # 세계지도
 @login_required
 def world(request):

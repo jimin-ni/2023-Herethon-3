@@ -1,0 +1,132 @@
+@font-face {
+    font-family: "PyeongChangPeace-Bold";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2")
+        format("woff2");
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: "PyeongChangPeace-Light";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Light.woff2")
+        format("woff2");
+    font-weight: 300;
+    font-style: normal;
+}
+
+html {
+    font-size: 16px;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    font-family: "PyeongChangPeace-Light";
+    background-color: #1d0090;
+    background-image: url("/media/back_e.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size: 75%;
+
+    text-align: center;
+}
+
+#content-container {
+    margin: 5% 36% 0 36%;
+    width: 28%;
+    border-style: none;
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#back-btn-container {
+    text-align: left;
+
+    /* margin-top -> padding-top */
+    padding-top: 3%;
+    margin-left: 2%;
+    width: 13%;
+    height: 13%;
+}
+
+#back-btn {
+    border-style: none;
+    background-color: transparent;
+}
+
+#logo-container {
+    margin-left: 35%;
+    margin-right: 35%;
+}
+
+img {
+    max-width: 100%;
+}
+
+#profile-container {
+    position: relative;
+    margin-left: 25%;
+    width: 50%;
+
+    overflow: hidden;
+    background-color: white;
+
+    border-style: none;
+    border-radius: 50%;
+}
+
+#profile-container:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+#profile-container > img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#greeting {
+    font-family: "PyeongChangPeace-Light";
+    font-size: 1.4rem;
+
+    margin: 3% 0;
+}
+
+#start-btn-container {
+    padding: 0 17% 12% 17%;
+}
+
+#start-btn {
+    font-family: "PyeongChangPeace-Bold";
+
+    width: 100%;
+
+    color: #1d0090;
+    padding: 7% 20%;
+
+    font-weight: 700;
+    /* font-size: ; */
+    font-size: 1.3rem;
+
+    border-style: none;
+    border-radius: 10px;
+    background-color: #ffe500;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+#start-btn > span {
+    color: black;
+}
+
+#start-btn:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+        7px 14px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}

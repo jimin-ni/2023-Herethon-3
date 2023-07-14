@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style-mypage.css' %}">
+
+    <title>myPage</title>
+</head>
+
+<body>
+  {% block content %}
+    <div id="navbar">
+        <button id="back-btn"><img src="media/icBack.png" alt=""></button>
+        <span>마이페이지</span>
+        <button id="home-btn"><img src="media/icHome.png" alt=""></button>
+    </div>
+
+    <div id="my-main">
+        <div id="profile-div">
+            <div id="pic-container">
+                <img src="{{user.profileImg.url}}" alt="">
+            </div>
+            <button id="modify-btn"><a href="{% url 'user:change_info' %}">개인정보 수정하기</a></button>
+            <br>
+            <button id="logout-btn"><a href="{% url 'user:logout' %}">로그아웃</a></button>
+        </div>
+
+        <div id="cities-div">
+            <h2> <span id="username">{{user.nickname}}</span> 님의 마이페이지</h2>
+            <p>내가 평가한 도시</p>
+            <div id="city-list-div">
+                <div class="city">
+                    <div id="city-flag-container">
+                        <img id="city-flag"
+                            src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
+                            alt="">
+                    </div>
+                    <span id="continent">아시아</span><span id="country">일본</span><span id="city">도쿄</span>
+                    <button>
+                        <img src="media/icGo.png" alt="">
+                    </button>
+                </div>
+                <div class="city">
+                    <div id="city-flag-container">
+                        <img id="city-flag"
+                            src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c3/Flag_of_France.svg/1200px-Flag_of_France.svg.png"
+                            alt="">
+                    </div>
+                    <span id="continent">유럽</span><span id="country">프랑스</span><span id="city">니스</span>
+                    <button>
+                        <img src="media/icGo.png" alt="">
+                    </button>
+                </div>
+                <div class="city">
+                    <div id="city-flag-container">
+                        <img id="city-flag" src="" alt="">
+                    </div>
+                    <span id="continent">유럽</span><span id="country">프랑스</span><span id="city">니스</span>
+                    <button>
+                        <img src="media/icGo.png" alt="">
+                    </button>
+                </div>
+                <div class="city">
+                    <div id="city-flag-container">
+                        <img id="city-flag" src="" alt="">
+                    </div>
+                    <span id="continent">아시아</span><span id="country">일본</span><span id="city">도쿄</span>
+                    <button>
+                        <img src="media/icGo.png" alt="">
+                    </button>
+                </div>
+                <div class="city">
+                    <div id="city-flag-container">
+                        <img id="city-flag" src="" alt="">
+                    </div>
+                    <span id="continent">아시아</span><span id="country">일본</span><span id="city">도쿄</span>
+                    <button>
+                        <img src="media/icGo.png" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="{% static 'js/js-mypage.js' %}"></script>
+    {% endblock %}
+</body>
+
+</html>

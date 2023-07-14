@@ -1,21 +1,16 @@
 @font-face {
-<<<<<<< HEAD
   font-family: "PyeongChangPeace-Bold";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2")
-    format("woff2");
+      format("woff2");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "PyeongChangPeace-Light";
   src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Light.woff2")
-    format("woff2");
+      format("woff2");
   font-weight: 300;
   font-style: normal;
-}
-
-html {
-  font-size: 16px;
 }
 
 html,
@@ -23,6 +18,10 @@ body {
   width: 100%;
   min-height: 100%;
   margin: 0;
+}
+
+html {
+  font-size: 16px;
 }
 
 body {
@@ -59,16 +58,19 @@ img {
   background-color: transparent;
   border: none;
 
-  width: 5%;
-  height: 100%;
+  padding: 0.8%;
   display: flex;
   align-items: center;
+}
+
+#navbar > button > img {
+  width: 50px;
 }
 
 /* ------------------ */
 
 #my-main {
-  margin: 0 6%;
+  margin: 0% 13%;
   display: flex;
   justify-content: space-between;
 
@@ -102,7 +104,7 @@ img {
 
 #modify-btn:hover {
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
-    7px 14px 4px 0px rgba(0, 0, 0, 0.25) inset;
+      7px 14px 4px 0px rgba(0, 0, 0, 0.25) inset;
 }
 
 #logout-btn {
@@ -130,7 +132,7 @@ img {
 }
 
 #pic-container:before,
-#city-flag-container:before {
+.city-flag-container:before {
   content: "";
   display: block;
   padding-top: 100%;
@@ -218,7 +220,7 @@ img {
   width: 10%;
 }
 
-#city-flag-container {
+.city-flag-container {
   display: inline;
   position: relative;
   overflow: hidden;
@@ -237,242 +239,8 @@ img {
 button:hover {
   cursor: pointer;
 }
-=======
-    font-family: "PyeongChangPeace-Bold";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2")
-      format("woff2");
-    font-weight: 700;
-    font-style: normal;
-  }
-  @font-face {
-    font-family: "PyeongChangPeace-Light";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Light.woff2")
-      format("woff2");
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  html {
-    font-size: 16px;
-  }
-  
-  html,
-  body {
-    width: 100%;
-    min-height: 100%;
-    margin: 0;
-  }
-  
-  body {
-    margin: 0;
-    font-family: "PyeongChangPeace-Bold";
-    background-color: #1d0090;
-  }
-  
-  img {
-    max-width: 100%;
-  }
-  
-  #navbar {
-    display: flex;
-    justify-content: space-between;
-  
-    margin-top: 0;
-  
-    height: 10vh;
-  
-    background-color: #ffe500;
-  }
-  
-  #navbar > span {
-    color: #1d0090;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-  
-    font-size: 1.5rem;
-  }
-  
-  #navbar > button {
-    background-color: transparent;
-    border: none;
-  
-    width: 5%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-  
-  /* ------------------ */
-  
-  #my-main {
-    margin: 0 6%;
-    display: flex;
-    justify-content: space-between;
-  
-    font-size: 1.3rem;
-  }
-  
-  #my-main > div {
-    display: inline-block;
-  }
-  
-  /* ---------------- */
-  #profile-div {
-    text-align: center;
-    width: 27%;
-  
-    margin: 10% 0 10% 10%;
-  }
-  
-  #modify-btn {
-    margin-top: 10%;
-    padding: 2% 5%;
-    font-family: "PyeongChangPeace-Light";
-    color: #1d0090;
-    background-color: #ffe500;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  
-    font-size: 1.4rem;
-  }
-  
-  #modify-btn:hover {
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
-      7px 14px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  }
-  
-  #logout-btn {
-    margin-top: 5%;
-    border: none;
-    background-color: transparent;
-  
-    font-family: "PyeongChangPeace-Light";
-    color: white;
-    font-size: 1rem;
-  }
-  
-  #logout-btn:hover {
-    text-decoration: underline;
-  }
-  
-  #pic-container {
-    position: relative;
-    width: 100%;
-    border-style: none;
-    border-radius: 50%;
-  
-    overflow: hidden;
-    background-color: white;
-  }
-  
-  #pic-container:before,
-  #city-flag-container:before {
-    content: "";
-    display: block;
-    padding-top: 100%;
-  }
-  
-  #pic-container > img,
-  #city-flag {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  #name-container {
-    margin-top: 7%;
-    padding: 5%;
-    display: flex;
-    justify-content: space-between;
-  
-    color: #1d0090;
-    background-color: white;
-  
-    border-radius: 15px;
-  }
-  
-  #name-container > button {
-    font-family: "PyeongChangPeace-Light";
-    border-style: none;
-    border-radius: 10px;
-    background-color: #ffe500;
-  }
-  
-  #cities-div {
-    width: 48%;
-    margin-top: 5%;
-    margin-right: 8%;
-    color: white;
-  }
-  
-  #cities-div > p {
-    font-family: "PyeongChangPeace-Light";
-  }
-  
-  #city-list-div {
-    font-family: "PyeongChangPeace-Light";
-  
-    padding: 4% 4% 0 4%;
-    height: 50%;
-    background-color: white;
-    overflow-y: scroll;
-  
-    border-radius: 15px;
-    box-shadow: 0px 4px 4px 0px #000;
-  }
-  
-  #city-list-div::-webkit-scrollbar {
-    border-style: none;
-  }
-  
-  .city {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  
-    height: 18%;
-    border-radius: 10px;
-    border-style: none;
-  
-    background-color: #ffe500;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-  
-    padding: 2% 0 2% 3%;
-  
-    margin-bottom: 2%;
-  }
-  
-  .city > button {
-    border-style: none;
-    background-color: transparent;
-    width: 10%;
-  }
-  
-  #city-flag-container {
-    display: inline;
-    position: relative;
-    overflow: hidden;
-    background-color: white;
-  
-    width: 11%;
-    height: 100%;
-    border-style: none;
-    border-radius: 50%;
-  }
-  
-  .city > span {
-    color: #1d0090;
-  }
-  
-  button:hover {
-    cursor: pointer;
-  }
->>>>>>> 713bf834585d063a0649dcd4c5599f6ec25df72c
+
+/* city-score 감춤 */
+#city-score {
+  display: none;
+}

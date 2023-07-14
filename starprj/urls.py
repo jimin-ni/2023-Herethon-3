@@ -49,10 +49,7 @@ urlpatterns = [
     
     
     #* 방법 5 유투브 보고 따라하기 
-    path('test5/', include('test5.urls')),
-
-# test6 url 추가
-    path('test6/', include('test6.urls')),
+    #path('test5/', include('test5.urls')),
     
 ]
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # 방법 3 위해서 추가 

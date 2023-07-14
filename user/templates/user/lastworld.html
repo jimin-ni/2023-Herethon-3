@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% load static %}
+        <link href="{% static 'css/world.css' %}" rel="stylesheet" />
+        <title>지도 보기</title>
+    </head>
+    <body>
+        {% block content %}
+        <header class="nav">
+            <img src="{% static 'media/back.png' %}" id="back" />
+            <div id="name">세계지도</div>
+            <img src="{% static 'media/my.png' %}" id="my" />
+        </header>
+        <div id="map"></div>
+        <script defer src="{% static 'js/world.js' %}"></script>
+        <script
+            defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPuvRqBorD1IAK4uNuuyfj_PFaEd8rGGA&callback=initMap"
+        ></script>
+        {% endblock %}
+    </body>
+</html>

@@ -1,415 +1,1354 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {% load static %}
-        <link href="{% static 'css/world.css' %}" rel="stylesheet" />
-        <link rel="stylesheet" href="{% static 'css/modal.css' %}" />
-        <title>지도 보기</title>
-    </head>
-    <body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link href="{% static 'css/world.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/rating-item-modal.css' %}" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <title>🌟지도🌟</title>
+  </head>
+  <body>
     {% block content %}
-        <header class="nav">
-            <a href="{% url 'user:main' %}" id="back"
-                ><img src="{% static 'media/back.png' %}" id="back_img"
-            /></a>
-            <div id="name">별천지</div>
-            <a href="{% url 'user:mypage' %}" id="my">
-                <img src="{% static 'media/my.png' %}" id="my_img" />
-            </a>
-        </header>
-        <div id="map"></div>
-        <!-- Modal -->
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <button id="close-btn">
-                    <img src="{% static 'media/icClose.png' %}" alt="close-button" />
-                </button>
+    <header class="nav">
+      <a href="{% url 'complete' %}" id="back"
+        ><img src="{% static 'media/back.png' %}" id="back_img"
+      /></a>
+      <div id="name">별천지</div>
+      <a href="{% url 'mypage' %}" id="my">
+        <img src="{% static 'media/my.png' %}" id="my_img" />
+      </a>
+    </header>
+    <div id="map"></div>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <button class="close-btn">
+          <img src="{% static 'media/icClose.png' %}" alt="close-button" />
+        </button>
 
-                <div id="header">
-                    <div id="modal-flag">
-                        <img
-                            src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
-                            alt=""
-                        />
-                    </div>
-                    <h2 id="header-text">
-                        <span id="modal-country">일본</span><span> - </span
-                        ><span id="modal-city">도쿄</span>의 평점
-                    </h2>
-                </div>
-
-                <div id="rating-div">
-                    <div id="total">
-                        <div class="rating-text">
-                            <span>총 평점</span><span class="score">0점</span>
-                        </div>
-                        <form id="star-rating-form" action="">
-                            {{csrf_token}}
-                            <fieldset>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="1"
-                                    id="rate1"
-                                /><label for="rate1"
-                                    ><img
-                                        src="{% static 'media/icEmptyStar.png' %}"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="2"
-                                    id="rate2"
-                                /><label for="rate2"
-                                    ><img
-                                        src="{% static 'media/icEmptyStar.png' %}"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="3"
-                                    id="rate3"
-                                /><label for="rate3"
-                                    ><img
-                                        src="{% static 'media/icEmptyStar.png' %}"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="4"
-                                    id="rate4"
-                                /><label for="rate4"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="5"
-                                    id="rate5"
-                                /><label for="rate5"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                            </fieldset>
-                        </form>
-                    </div>
-
-                    <div id="safety">
-                        <div class="rating-text">
-                            <span>치안</span
-                            ><span class="score"><span>0</span>점</span>
-                        </div>
-                        <form id="star-rating-form" action="">
-                            <fieldset>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="1"
-                                    id="rate1"
-                                /><label for="rate1"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="2"
-                                    id="rate2"
-                                /><label for="rate2"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="3"
-                                    id="rate3"
-                                /><label for="rate3"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="4"
-                                    id="rate4"
-                                /><label for="rate4"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="5"
-                                    id="rate5"
-                                /><label for="rate5"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                            </fieldset>
-                        </form>
-                    </div>
-
-                    <div id="price">
-                        <div class="rating-text">
-                            <span>물가</span
-                            ><span class="score"><span>0</span>점</span>
-                        </div>
-                        <form id="star-rating-form" action="">
-                            <fieldset>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="1"
-                                    id="rate1"
-                                /><label for="rate1"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="2"
-                                    id="rate2"
-                                /><label for="rate2"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="3"
-                                    id="rate3"
-                                /><label for="rate3"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="4"
-                                    id="rate4"
-                                /><label for="rate4"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="5"
-                                    id="rate5"
-                                /><label for="rate5"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                            </fieldset>
-                        </form>
-                    </div>
-
-                    <div id="transport">
-                        <div class="rating-text">
-                            <span>교통 편의성</span
-                            ><span class="score"><span>0</span>점</span>
-                        </div>
-                        <form id="star-rating-form" action="">
-                            <fieldset>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="1"
-                                    id="rate1"
-                                /><label for="rate1"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="2"
-                                    id="rate2"
-                                /><label for="rate2"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="3"
-                                    id="rate3"
-                                /><label for="rate3"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="4"
-                                    id="rate4"
-                                /><label for="rate4"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="5"
-                                    id="rate5"
-                                /><label for="rate5"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                            </fieldset>
-                        </form>
-                    </div>
-
-                    <div id="entertainment">
-                        <div class="rating-text">
-                            <span>즐길 거리</span
-                            ><span class="score"><span>0</span>점</span>
-                        </div>
-                        <form id="star-rating-form" action="">
-                            <fieldset>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="1"
-                                /><label for="rate1"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="2"
-                                /><label for="rate2"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="3"
-                                /><label for="rate3"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="4"
-                                /><label for="rate4"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="5"
-                                /><label for="rate5"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                            </fieldset>
-                        </form>
-                    </div>
-
-                    <div id="food">
-                        <div class="rating-text">
-                            <span>먹거리</span
-                            ><span class="score"><span>0</span>점</span>
-                        </div>
-                        <form id="star-rating-form" action="">
-                            <fieldset>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="1"
-                                    id="rate1"
-                                /><label for="rate1"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="2"
-                                    id="rate2"
-                                /><label for="rate2"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="3"
-                                    id="rate3"
-                                /><label for="rate3"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="4"
-                                    id="rate4"
-                                /><label for="rate4"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                                <input
-                                    type="radio"
-                                    name="star"
-                                    value="5"
-                                    id="rate5"
-                                /><label for="rate5"
-                                    ><img
-                                        src="media/icEmptyStar.png"
-                                        alt="star"
-                                /></label>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div id="header">
+          <div id="modal-flag">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
+              alt=""
+            />
+          </div>
+          <h2 id="header-text">
+            <span id="modal-country">일본</span><span> - </span
+            ><span id="modal-city">도쿄</span>의 평점
+          </h2>
         </div>
-        <script defer src="{% static 'js/world.js' %}"></script>
-        <script
-            defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPuvRqBorD1IAK4uNuuyfj_PFaEd8rGGA&callback=initMap"
-        ></script>
-        <script src="{% static 'js/mypage-modal.js' %}"></script>
+
+        <div id="rating-div">
+          <div id="total">
+            <div class="rating-text">
+              <span>총 평점</span><span class="score">0점</span>
+            </div>
+            <form id="star-rating-form" action="">
+              <fieldset>
+                <input type="radio" name="star" value="1" id="rate1" /><label
+                  for="rate1"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="2" id="rate2" /><label
+                  for="rate2"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="3" id="rate3" /><label
+                  for="rate3"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="4" id="rate4" /><label
+                  for="rate4"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="5" id="rate5" /><label
+                  for="rate5"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+              </fieldset>
+            </form>
+          </div>
+
+          <div id="safety">
+            <div class="rating-text">
+              <span>치안</span><span class="score"><span>0</span>점</span>
+            </div>
+            <form id="star-rating-form" action="">
+              <fieldset>
+                <input type="radio" name="star" value="1" id="rate1" /><label
+                  for="rate1"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="2" id="rate2" /><label
+                  for="rate2"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="3" id="rate3" /><label
+                  for="rate3"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="4" id="rate4" /><label
+                  for="rate4"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="5" id="rate5" /><label
+                  for="rate5"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+              </fieldset>
+            </form>
+          </div>
+
+          <div id="price">
+            <div class="rating-text">
+              <span>물가</span><span class="score"><span>0</span>점</span>
+            </div>
+            <form id="star-rating-form" action="">
+              <fieldset>
+                <input type="radio" name="star" value="1" id="rate1" /><label
+                  for="rate1"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="2" id="rate2" /><label
+                  for="rate2"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="3" id="rate3" /><label
+                  for="rate3"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="4" id="rate4" /><label
+                  for="rate4"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="5" id="rate5" /><label
+                  for="rate5"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+              </fieldset>
+            </form>
+          </div>
+
+          <div id="transport">
+            <div class="rating-text">
+              <span>교통 편의성</span
+              ><span class="score"><span>0</span>점</span>
+            </div>
+            <form id="star-rating-form" action="">
+              <fieldset>
+                <input type="radio" name="star" value="1" id="rate1" /><label
+                  for="rate1"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="2" id="rate2" /><label
+                  for="rate2"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="3" id="rate3" /><label
+                  for="rate3"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="4" id="rate4" /><label
+                  for="rate4"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="5" id="rate5" /><label
+                  for="rate5"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+              </fieldset>
+            </form>
+          </div>
+
+          <div id="entertainment">
+            <div class="rating-text">
+              <span>즐길 거리</span><span class="score"><span>0</span>점</span>
+            </div>
+            <form id="star-rating-form" action="">
+              <fieldset>
+                <input type="radio" name="star" value="1" /><label for="rate1"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="2" /><label for="rate2"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="3" /><label for="rate3"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="4" /><label for="rate4"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="5" /><label for="rate5"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+              </fieldset>
+            </form>
+          </div>
+
+          <div id="food">
+            <div class="rating-text">
+              <span>먹거리</span><span class="score"><span>0</span>점</span>
+            </div>
+            <form id="star-rating-form" action="">
+              <fieldset>
+                <input type="radio" name="star" value="1" id="rate1" /><label
+                  for="rate1"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="2" id="rate2" /><label
+                  for="rate2"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="3" id="rate3" /><label
+                  for="rate3"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="4" id="rate4" /><label
+                  for="rate4"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+                <input type="radio" name="star" value="5" id="rate5" /><label
+                  for="rate5"
+                  ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                /></label>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- safety-modal -->
+    <div id="safety-modal">
+      <div class="safety-modal-content">
+        <button class="close-btn">
+          <img src="{% static 'media/icClose.png' %}" alt="close-button" />
+        </button>
+        <button class="back-btn">
+          <img src="{% static 'media/icBack.png' %}" alt="" />
+        </button>
+
+        <div class="flag">
+          <div class="flag-wrap">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div id="scores-div">
+          <div class="average-score">
+            <div class="score-text">
+              <span>치안</span><span class="score">0점</span>
+            </div>
+            <div class="average-star-div">
+              <div class="star-container" id="star1">
+                <img src="{% static 'media/icEmptyStar.png'}" alt="" />
+              </div>
+              <div class="star-container" id="star2">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star3">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star4">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star5">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- my-score-div -->
+          <div class="my-score">
+            <p>내 평가</p>
+            <div class="my-star-div">
+              <form id="star-rating-form" action="">
+                <fieldset>
+                  <input type="radio" name="star" value="1" id="rate1" /><label
+                    for="rate1"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="2" id="rate2" /><label
+                    for="rate2"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="3" id="rate3" /><label
+                    for="rate3"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="4" id="rate4" /><label
+                    for="rate4"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="5" id="rate5" /><label
+                    for="rate5"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                </fieldset>
+              </form>
+
+              <span id="my-score-value">0점</span>
+              <span id="my-score-data">0</span>
+            </div>
+
+            <!-- others-score-div -->
+          </div>
+          <div class="others-score-div">
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- price-modal -->
+    <div id="price-modal">
+      <div class="safety-modal-content">
+        <button class="close-btn">
+          <img src="{% static 'media/icClose.png' %}" alt="close-button" />
+        </button>
+        <button class="back-btn">
+          <img src="{% static 'media/icBack.png' %}" alt="" />
+        </button>
+
+        <div class="flag">
+          <div class="flag-wrap">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div id="scores-div">
+          <div class="average-score">
+            <div class="score-text">
+              <span>물가</span><span class="score">0점</span>
+            </div>
+            <div class="average-star-div">
+              <div class="star-container" id="star1">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star2">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star3">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star4">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star5">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- my-score-div -->
+          <div class="my-score">
+            <p>내 평가</p>
+            <div class="my-star-div">
+              <form id="star-rating-form" action="">
+                <fieldset>
+                  <input type="radio" name="star" value="1" id="rate1" /><label
+                    for="rate1"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="2" id="rate2" /><label
+                    for="rate2"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="3" id="rate3" /><label
+                    for="rate3"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="4" id="rate4" /><label
+                    for="rate4"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="5" id="rate5" /><label
+                    for="rate5"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                </fieldset>
+              </form>
+
+              <span id="my-score-value">0점</span>
+              <span id="my-score-data">0</span>
+            </div>
+
+            <!-- others-score-div -->
+          </div>
+          <div class="others-score-div">
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- transport-modal -->
+    <div id="transport-modal">
+      <div class="safety-modal-content">
+        <button class="close-btn">
+          <img src="{% static 'media/icClose.png' %}" alt="close-button" />
+        </button>
+        <button class="back-btn">
+          <img src="{% static 'media/icBack.png' %}" alt="" />
+        </button>
+
+        <div class="flag">
+          <div class="flag-wrap">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div id="scores-div">
+          <div class="average-score">
+            <div class="score-text">
+              <span>교통 편의성</span><span class="score">0점</span>
+            </div>
+            <div class="average-star-div">
+              <div class="star-container" id="star1">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star2">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star3">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star4">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star5">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- my-score-div -->
+          <div class="my-score">
+            <p>내 평가</p>
+            <div class="my-star-div">
+              <form id="star-rating-form" action="">
+                <fieldset>
+                  <input type="radio" name="star" value="1" id="rate1" /><label
+                    for="rate1"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="2" id="rate2" /><label
+                    for="rate2"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="3" id="rate3" /><label
+                    for="rate3"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="4" id="rate4" /><label
+                    for="rate4"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="5" id="rate5" /><label
+                    for="rate5"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                </fieldset>
+              </form>
+
+              <span id="my-score-value">0점</span>
+              <span id="my-score-data">0</span>
+            </div>
+
+            <!-- others-score-div -->
+          </div>
+          <div class="others-score-div">
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- entertainment-modal -->
+    <div id="entertainment-modal">
+      <div class="safety-modal-content">
+        <button class="close-btn">
+          <img src="{% static 'media/icClose.png' %}" alt="close-button" />
+        </button>
+        <button class="back-btn">
+          <img src="{% static 'media/icBack.png' %}" alt="" />
+        </button>
+
+        <div class="flag">
+          <div class="flag-wrap">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div id="scores-div">
+          <div class="average-score">
+            <div class="score-text">
+              <span>즐길 거리</span><span class="score">0점</span>
+            </div>
+            <div class="average-star-div">
+              <div class="star-container" id="star1">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star2">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star3">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star4">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star5">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- my-score-div -->
+          <div class="my-score">
+            <p>내 평가</p>
+            <div class="my-star-div">
+              <form id="star-rating-form" action="">
+                <fieldset>
+                  <input type="radio" name="star" value="1" id="rate1" /><label
+                    for="rate1"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="2" id="rate2" /><label
+                    for="rate2"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="3" id="rate3" /><label
+                    for="rate3"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="4" id="rate4" /><label
+                    for="rate4"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="5" id="rate5" /><label
+                    for="rate5"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                </fieldset>
+              </form>
+
+              <span id="my-score-value">0점</span>
+              <span id="my-score-data">0</span>
+            </div>
+
+            <!-- others-score-div -->
+          </div>
+          <div class="others-score-div">
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- food-modal -->
+    <div id="food-modal">
+      <div class="safety-modal-content">
+        <button class="close-btn">
+          <img src="{% static 'media/icClose.png' %}" alt="close-button" />
+        </button>
+        <button class="back-btn">
+          <img src="{% static 'media/icBack.png' %}" alt="" />
+        </button>
+
+        <div class="flag">
+          <div class="flag-wrap">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div id="scores-div">
+          <div class="average-score">
+            <div class="score-text">
+              <span>먹거리</span><span class="score">0점</span>
+            </div>
+            <div class="average-star-div">
+              <div class="star-container" id="star1">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star2">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star3">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star4">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+              <div class="star-container" id="star5">
+                <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+              </div>
+            </div>
+          </div>
+
+          <!-- my-score-div -->
+          <div class="my-score">
+            <p>내 평가</p>
+            <div class="my-star-div">
+              <form id="star-rating-form" action="">
+                <fieldset>
+                  <input type="radio" name="star" value="1" id="rate1" /><label
+                    for="rate1"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="2" id="rate2" /><label
+                    for="rate2"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="3" id="rate3" /><label
+                    for="rate3"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="4" id="rate4" /><label
+                    for="rate4"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                  <input type="radio" name="star" value="5" id="rate5" /><label
+                    for="rate5"
+                    ><img src="{% static 'media/icEmptyStar.png' %}" alt="star"
+                  /></label>
+                </fieldset>
+              </form>
+
+              <span id="my-score-value">0점</span>
+              <span id="my-score-data">0</span>
+            </div>
+
+            <!-- others-score-div -->
+          </div>
+          <div class="others-score-div">
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+            <div class="otheruser">
+              <div class="profile-container">
+                <div id="img-container">
+                  <img src="" alt="" />
+                </div>
+              </div>
+              <div class="other-info">
+                <p><span id="nickname">000</span>님</p>
+                <div class="other-star-div">
+                  <div class="star-container" id="star1">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star2">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star3">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star4">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <div class="star-container" id="star5">
+                    <img src="{% static 'media/icEmptyStar.png' %}" alt="" />
+                  </div>
+                  <span class="score">0점</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <script src="js/mypage-modal.js"></script> -->
+    <script defer src="{% static 'js/world.js' %}"></script>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPuvRqBorD1IAK4uNuuyfj_PFaEd8rGGA&callback=initMap"
+    ></script>
     {% endblock %}
-    </body>
+  </body>
 </html>

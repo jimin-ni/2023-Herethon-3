@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/complete.css' %}" />
+
+
+    <title>🌟환영해요🌟</title>
+</head>
+
+<body>
+    <div id="content-container">
+        <div id="back-btn-container">
+            <button id="back-btn"><img src="{% static 'media/icBack.png' %}" alt=""></button>
+        </div>
+
+        <div id="logo-container">
+            <img src="{% static 'media/icLogo.png' %}" alt="logo">
+        </div>
+        <div id="profile-container">
+            <img id="profile-pic" src="{% static 'media/icMypageProfile.png' }" alt="">
+        </div>
+        <p id="greeting"><span id="username">000 </span>님 안녕하세요!</p>
+        <div id="start-btn-container">
+            <button id="start-btn">별천지 <span>시작하기</span></button>
+        </div>
+
+    <script src="js/complete.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,346 @@
+@font-face {
+  font-family: "PyeongChangPeace-Light";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Light.woff2")
+    format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+#safety-modal,
+#price-modal {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+.safety-modal-content {
+  background-color: white;
+  width: 35vw;
+  height: 80vh;
+  border-radius: 10px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 30px;
+
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+
+  font-family: "PyeongChangPeace-Light";
+  color: #1d0090;
+}
+
+/* --------back button-------- */
+
+.back-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  height: 5vh;
+  width: 3vw;
+
+  background-color: transparent;
+  border: none;
+}
+
+.back-btn > img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+/* --------close button-------- */
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  height: 5vh;
+  width: 3vw;
+
+  background-color: transparent;
+  border: none;
+}
+
+.close-btn > img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+/* ----------flag---------- */
+.flag {
+  margin-top: 3%;
+
+  width: 100%;
+  height: 10vh;
+  padding: 0 43%;
+  box-sizing: border-box;
+}
+
+.flag-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #1d0090;
+  border-radius: 50%;
+
+  overflow: hidden;
+}
+
+.flag-wrap:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.flag-wrap > img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------scores-div---------- */
+#scores-div {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 16px;
+}
+
+/* -----------average-score-------- */
+.average-score {
+  width: 100%;
+  height: 12vh;
+
+  padding: 1% 10%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  font-size: 1.3rem;
+}
+
+.score-text {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 3% 5%;
+  box-sizing: border-box;
+}
+
+.average-star-div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.average-star-div > .star-container {
+  width: 20%;
+  height: 57%;
+  text-align: center;
+}
+
+.star-container > img {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+/* ------------my-score----------- */
+
+.my-score {
+  width: 100%;
+  height: 12vh;
+
+  margin-top: 7%;
+
+  padding: 0 10%;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  border: 1px solid #1d0090;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.my-score > p {
+  width: 100%;
+  margin: 1% auto;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.my-star-div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.my-star-div > .star-container {
+  width: 12%;
+}
+
+#my-score-value {
+  width: 20%;
+
+  padding-bottom: 3%;
+}
+
+/* ---------rating form ----------*/
+
+#star-rating-form {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#star-rating-form fieldset {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: none;
+
+  padding-left: 0;
+}
+
+#star-rating-form input[type="radio"] {
+  display: none;
+}
+
+#star-rating-form label > img {
+  width: 60%;
+}
+
+#my-score-value {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  font-size: 1.3rem;
+}
+
+#my-score-data {
+  display: none;
+}
+
+/* -----------others-score-div------ */
+.others-score-div {
+  margin-top: 5%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 5%;
+  box-sizing: content-box;
+
+  /* SCROLL */
+  height: 37vh;
+  overflow-y: scroll;
+}
+
+.others-score-div::-webkit-scrollbar {
+  border-style: none;
+}
+
+.otheruser {
+  height: 7vh;
+  margin-bottom: 1%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 3% 10%;
+  box-sizing: content-box;
+
+  border: 1px solid #1d0090;
+  border-radius: 10px;
+}
+
+.profile-container {
+  width: 40%;
+  margin-right: 5%;
+
+  display: flex;
+  align-items: center;
+}
+
+#img-container {
+  position: relative;
+  width: 100%;
+
+  background-color: grey;
+
+  border: 1px solid #1d0090;
+  border-radius: 50%;
+
+  overflow: hidden;
+}
+
+#img-container:before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+#img-container > img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.other-info > p {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.other-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100%;
+}
+
+.other-star-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.other-star-div > .star-container {
+  width: 13%;
+}
